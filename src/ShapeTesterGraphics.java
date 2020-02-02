@@ -1,21 +1,31 @@
 import java.awt.*;
-import java.io.*;
-import java.util.*;
 
 /**
  *  Test program to create and display selected shape.
+ *  Offer draw all shape option to let user command system to
+ *  draw every object created in program
  *
  *  Created by Nonthakorn Sukprom 60070503435,
  *  2 February 2020
  */
 public class ShapeTesterGraphics
 {
+    /**
+     * AbstractShape object to hold newly create shape object
+     */
     protected static AbstractShape lastestShape = null;
 
+    /**
+     * boolean variable to get the program out of loop
+     * if unexpect input occur.
+     */
     private static boolean bContinue = true;
+
     /**
      *  Main method, First show list of available function
-     *  and wait for user to select by input. The
+     *  and wait for user to select by input.
+     *  The program wil ask user shape property then draw and calculates parameter and area.
+     *  Ask if user want to move the created object or not.
      */
     public static void main(String[] arguments)
     {

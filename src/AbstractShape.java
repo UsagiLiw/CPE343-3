@@ -1,5 +1,3 @@
-import com.sun.javafx.tk.Toolkit;
-
 import java.util.ArrayList;
 import java.awt.*;
 /**
