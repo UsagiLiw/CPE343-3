@@ -22,18 +22,7 @@ public class Square extends AbstractShape
 
     /** color to use for drawing a particular square */
     private Color drawColor = null;
-    
-    /* static data */
-    /** so we can count and label figures */ 
-    private static int counter = 0;
-    
-    /** collection of all squares */
-    private static ArrayList<Square> allFigures = new ArrayList<Square>();
 
-    /** used to cycle through display colors */    
-    private static Color colors[] = {Color.RED, Color.GREEN, Color.BLUE,
-			      Color.MAGENTA, Color.ORANGE};
-    
     /**
      * Constructor creates a new Square by setting the
      * values of the sets of vertex coordinates.
@@ -52,25 +41,7 @@ public class Square extends AbstractShape
         vertices.add(new Point(x, y + side));               // lower left
         counter++;
         allFigures.add(this);
-        color = colors[counter % 5];                           // set so will always be same color
-    }
-
-    /**
-     * Move the square somewhere else, determined by new
-     * upper left x and y. 
-     * The function re-initializes the other coordinates in the array
-     * to keep the figure square.
-     * @param   newAnchor    New upper left X coordinate
-     */
-    public void move(Point newAnchor)
-    {
-        anchor.setLocation(newAnchor);
-        int newX = anchor.x;
-        int newY = anchor.y;
-        vertices.set(0, anchor);                                   // upper left
-        vertices.set(1, new Point(newX + oneside, newY));       // upper right
-        vertices.set(2, new Point(newX + oneside, newY + oneside));     // lower right
-        vertices.set(3, new Point( newX, newY + oneside));      // lower left
+        drawColor = colors[counter % 5];                           // set so will always be same color
     }
 
     /**
@@ -92,52 +63,17 @@ public class Square extends AbstractShape
         return (double) oneside * oneside;
     }
 
-    /**
-     * Draw the square. The passed graphics2D contains
-     * the information necessary for this.
-     * @param graphics Class with info to do the drawing
-     */
-    public void draw(Graphics2D graphics)
-    {
-	graphics.setPaint(drawColor);
-	int x1,y1,x2,y2;
-	/* cycle around the outside of the square
-	 * starting at the upper left. Get the current
-	 * corner and the next corner, then draw
-	 * a line between them.
-	 */
-	for (int i = 0; i < 4; i++)
-	{  
-	    int pt1 = i;
-	    int pt2 = ((i+1) % 4);
-	    x1 = vertices.get(pt1).x;
-	    y1 = vertices.get(pt1).y;
-	    x2 = vertices.get(pt2).x;
-	    y2 = vertices.get(pt2).y;
-	    x1 *=10;    /* multiply by 10 so we can use small numbers for coords*/
-	    y1 *=10;
-	    x2 *=10;
-	    y2 *=10;
-	    graphics.drawLine(x1,y1,x2,y2);
-	}
-	/* label in the center */
-	int ulx = vertices.get(0).x * 10;
-	int uly = vertices.get(0).y * 10;
-	graphics.setColor(Color.BLACK);
-	graphics.drawString(new String(" " + counter),(ulx + 10),(uly-10));
-    }
-
     /** static method to draw all the squares that have been
      * created so far.
      * @param  graphics   Graphics context for drawing.
      */
-    public static void drawAll(Graphics2D graphics)
+    /*public static void drawAll(Graphics2D graphics)
     {
-	for (int i=0; i < counter; i++)
-	{
-	    Square square = allFigures.get(i);
-	    square.draw(graphics);
-	}
-    }
+        for (int i=0; i < counter; i++)
+        {
+            Square square = allFigures.get(i);
+            square.draw(graphics);
+        }
+    }*/
 	
 }

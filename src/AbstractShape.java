@@ -1,3 +1,5 @@
+import com.sun.javafx.tk.Toolkit;
+
 import java.util.ArrayList;
 import java.awt.*;
 /**
@@ -19,7 +21,7 @@ public abstract class AbstractShape
     protected int pointCount; 
 
     /** color */
-    protected Color color;
+    protected Color drawColor;
 
     /** so we can count and label figures */ 
     protected static int counter = 0;
@@ -37,14 +39,51 @@ public abstract class AbstractShape
      * the passed point.
      * @param  newAnchor    x,y coordinates of new reference/anchor point
      */
-    public abstract void move(Point newAnchor);
+    public void move(Point newAnchor)
+    {
+        // Find different between two anchor and apply to all vertices
+        int diffX = newAnchor.x - anchor.x;
+        int diffY = newAnchor.y - anchor.y;
+        anchor.setLocation(newAnchor);
+        for (int i = 0; i < vertices.size(); i++)
+        {
+            vertices.get(i).x += diffX;
+            vertices.get(i).y += diffY;
+        }
+    }
 
     /**
      * Draw the shape.
      * @param  graphics    Graphics context for drawing
      */
-    public abstract void draw(Graphics2D graphics);
-
+    public void draw(Graphics2D graphics)
+    {
+        graphics.setPaint(drawColor);
+        int x1,y1,x2,y2;
+        /* cycle around the outside of the square
+         * starting at the upper left. Get the current
+         * corner and the next corner, then draw
+         * a line between them.
+         */
+        for (int i = 0; i < 4; i++)
+        {
+            int pt1 = i;
+            int pt2 = ((i+1) % 4);
+            x1 = vertices.get(pt1).x;
+            y1 = vertices.get(pt1).y;
+            x2 = vertices.get(pt2).x;
+            y2 = vertices.get(pt2).y;
+            x1 *=10;    /* multiply by 10 so we can use small numbers for coords*/
+            y1 *=10;
+            x2 *=10;
+            y2 *=10;
+            graphics.drawLine(x1,y1,x2,y2);
+        }
+        int anchorX = anchor.x * 10;
+        int anchorY = anchor.y * 10;
+        graphics.setColor(Color.BLACK);
+        graphics.drawString(new String(" " + counter),(anchorX + 10),(anchorY-10));
+    }
     /**
      * Calculate and return the perimeter.
      * @return  Length of shape boundary
@@ -63,11 +102,11 @@ public abstract class AbstractShape
      */
     public static void drawAll(Graphics2D graphics)
     {
-	for (int i=0; i < counter; i++)
-	{
-	    AbstractShape shape = allFigures.get(i);
-	    shape.draw(graphics);
-	}
+        for (int i=0; i < counter; i++)
+        {
+            AbstractShape shape = allFigures.get(i);
+            shape.draw(graphics);
+        }
     }
 
 
