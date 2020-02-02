@@ -11,7 +11,7 @@ import java.awt.*;
 public abstract class AbstractShape
 {
     /** Anchor point X,Y */
-    protected Point anchor;   /* determines the "position" of a shape */
+    protected Point anchor = new Point();   /* determines the "position" of a shape */
     /* Point is a class in package java.awt that has a public x and y member */
 
     /** list of points */
@@ -25,6 +25,8 @@ public abstract class AbstractShape
 
     /** so we can count and label figures */ 
     protected static int counter = 0;
+
+    protected int figureNumber;
     
     /** collection of all squares */
     protected static ArrayList<AbstractShape> allFigures = new ArrayList<AbstractShape>();
@@ -44,12 +46,12 @@ public abstract class AbstractShape
         // Find different between two anchor and apply to all vertices
         int diffX = newAnchor.x - anchor.x;
         int diffY = newAnchor.y - anchor.y;
-        anchor.setLocation(newAnchor);
         for (int i = 0; i < vertices.size(); i++)
         {
             vertices.get(i).x += diffX;
             vertices.get(i).y += diffY;
         }
+        anchor.setLocation(newAnchor);
     }
 
     /**
@@ -59,16 +61,17 @@ public abstract class AbstractShape
     public void draw(Graphics2D graphics)
     {
         graphics.setPaint(drawColor);
+        pointCount = vertices.size();
         int x1,y1,x2,y2;
         /* cycle around the outside of the square
          * starting at the upper left. Get the current
          * corner and the next corner, then draw
          * a line between them.
          */
-        for (int i = 0; i < 4; i++)
+        for (int i = 0; i < pointCount; i++)
         {
             int pt1 = i;
-            int pt2 = ((i+1) % 4);
+            int pt2 = ((i+1) % pointCount);
             x1 = vertices.get(pt1).x;
             y1 = vertices.get(pt1).y;
             x2 = vertices.get(pt2).x;
@@ -82,7 +85,7 @@ public abstract class AbstractShape
         int anchorX = anchor.x * 10;
         int anchorY = anchor.y * 10;
         graphics.setColor(Color.BLACK);
-        graphics.drawString(new String(" " + counter),(anchorX + 10),(anchorY-10));
+        graphics.drawString(new String(" " + figureNumber),(anchorX + 10),(anchorY-10));
     }
     /**
      * Calculate and return the perimeter.

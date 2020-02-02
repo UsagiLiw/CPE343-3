@@ -20,13 +20,10 @@ public class Square extends AbstractShape
     /** also keep the length of one side */
     private int oneside = 0;
 
-    /** color to use for drawing a particular square */
-    private Color drawColor = null;
-
     /**
      * Constructor creates a new Square by setting the
      * values of the sets of vertex coordinates.
-     * Also increments the counter and sets the figureNumber. 
+     * Also increments the counter and sets the figureNumber.
      * @param     x        Upper left corner X
      * @param     y        Upper left corner Y
      * @param     side     Length of one side
@@ -34,12 +31,14 @@ public class Square extends AbstractShape
     public Square(int x, int y, int side)
     {
         oneside = side;
-        anchor.setLocation(x,y);
+        anchor.x = x;
+        anchor.y = y;
         vertices.add(anchor);                                  // upper left
         vertices.add(new Point(x + side, y));               // upper right
         vertices.add(new Point(x + side, y + side));     // lower right
         vertices.add(new Point(x, y + side));               // lower left
         counter++;
+        figureNumber = counter;
         allFigures.add(this);
         drawColor = colors[counter % 5];                           // set so will always be same color
     }

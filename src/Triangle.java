@@ -13,13 +13,9 @@ import java.util.ArrayList;
  */
 public class Triangle extends AbstractShape
 {
-
-    /** color to use for drawing a particular triangle */
-    private Color drawColor = null;
-
    /**
     * Constructor creates a new Triangle by setting the
-    * values of the sets of vertext coordinates.
+    * values of the sets of vertex coordinates.
     * Also increments counter, sets drawing color adn stores in allFigures.
     * @param     x1        X coord of first vertex
     * @param     y1        Y coord of first vertex
@@ -30,11 +26,17 @@ public class Triangle extends AbstractShape
     */
     public Triangle(int x1, int y1, int x2, int y2, int x3, int y3)
     {
-        anchor.setLocation(x1,y1);      // First point , anchor
-        vertices.set(0,anchor);
-        vertices.set(1,anchor);         // Second point
-        vertices.set(2,anchor);         // Thrid point
+        anchor.x = x1;
+        anchor.y = y1;                  // First point , anchor
+        vertices.add(anchor);
+        Point p2 = new Point(x2,y2);
+        System.out.println("x:" + p2.x + "y:" + p2.y);
+        vertices.add(p2);         // Second point
+        Point p3 = new Point(x3,y3);
+        System.out.println("x:" + p3.x + "y:" + p3.y);
+        vertices.add(new Point(x3,y3));         // Third point
         counter++;
+        figureNumber = counter;
         allFigures.add(this);
         drawColor = colors[counter % 5]; // set so will always be same color
     }
@@ -104,18 +106,4 @@ public class Triangle extends AbstractShape
 	   }
 	return len;
     }
-
-    /** static method to draw all the triangles that have been
-     * created so far.
-     * @param  graphics   Graphics context for drawing.
-     */
-    /*public static void drawAll(Graphics2D graphics)
-    {
-        for (int i=0; i < counter; i++)
-        {
-            Triangle triangle = allFigures.get(i);
-            triangle.draw(graphics);
-        }
-    }*/
-
 }

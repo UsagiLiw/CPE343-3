@@ -1,5 +1,7 @@
+import java.awt.*;
 import java.io.*;
 import java.util.*;
+
 /**
  *   Test program to create and display squares.
  *
@@ -46,18 +48,18 @@ public class SquareTesterGraphics
 	    String move = IOUtils.getString("Want to move the square (Y/N)?");
 	    if ((move.startsWith("Y")) || (move.startsWith("y")))
 		{
-		x = IOUtils.getInteger("New X: ");    
-		y = IOUtils.getInteger("New Y: ");
-		latestSquare.move(x,y);
-		viewer.clear();
-		try 
-		{
-		    Thread.sleep(1000); // Wait for clear to complete
-		}
-		catch (InterruptedException ie)
-		{
-		}
-		latestSquare.draw(viewer.getViewerGraphics());
+			x = IOUtils.getInteger("New X: ");
+			y = IOUtils.getInteger("New Y: ");
+			latestSquare.move(new Point(x,y));
+			viewer.clear();
+			try
+			{
+				Thread.sleep(1000); // Wait for clear to complete
+			}
+			catch (InterruptedException ie)
+			{
+			}
+			latestSquare.draw(viewer.getViewerGraphics());
 		} 
 	    System.out.println("-----------------------------\n");
 	    }
