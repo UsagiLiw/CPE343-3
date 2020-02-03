@@ -13,7 +13,7 @@ public class ShapeTesterGraphics
     /**
      * AbstractShape object to hold newly create shape object
      */
-    protected static AbstractShape lastestShape = null;
+    protected static AbstractShape latestShape = null;
 
     /**
      * boolean variable to get the program out of loop
@@ -70,18 +70,18 @@ public class ShapeTesterGraphics
                     System.out.println("Invalid input, Enter your choice again.");
             }
             /*Start Drawing and Calculation*/
-            lastestShape.draw(viewer.getViewerGraphics());
-            double perimeter = lastestShape.calcPerimeter();
+            latestShape.draw(viewer.getViewerGraphics());
+            double perimeter = latestShape.calcPerimeter();
             System.out.println("Perimeter is " + perimeter);
-            double area = lastestShape.calcArea();
+            double area = latestShape.calcArea();
             System.out.println("Area is " + area + "\n\n");
             System.out.println("-----------------------------");
-            String move = IOUtils.getString("Want to move the square (Y/N)?");
+            String move = IOUtils.getString("Want to move the figure (Y/N)?");
             if ((move.startsWith("Y")) || (move.startsWith("y")))
             {
                 int x = IOUtils.getInteger("New X for anchor: ");
                 int y = IOUtils.getInteger("New Y for anchor: ");
-                lastestShape.move(new Point(x, y));
+                latestShape.move(new Point(x, y));
                 viewer.clear();
                 try
                 {
@@ -90,7 +90,7 @@ public class ShapeTesterGraphics
                 catch (InterruptedException ie)
                 {
                 }
-                lastestShape.draw(viewer.getViewerGraphics());
+                latestShape.draw(viewer.getViewerGraphics());
             }
 
         }
@@ -114,7 +114,7 @@ public class ShapeTesterGraphics
             bContinue = false;
             return;
         }
-        lastestShape = new Triangle(x1,y1,x2,y2,x3,y3);
+        latestShape = new Triangle(x1,y1,x2,y2,x3,y3);
     }
 
     /**
@@ -132,7 +132,7 @@ public class ShapeTesterGraphics
             bContinue = false;
             return;
         }
-        lastestShape = new Square(x, y, side);
+        latestShape = new Square(x, y, side);
     }
 
     /**
@@ -141,8 +141,8 @@ public class ShapeTesterGraphics
      */
     private static void createDiamond()
     {
-        int x = IOUtils.getInteger("Enter X for upper left point: ");
-        int y = IOUtils.getInteger("Enter Y for upper left point: ");
+        int x = IOUtils.getInteger("Enter X for top point: ");
+        int y = IOUtils.getInteger("Enter Y for top point: ");
         int vLength = IOUtils.getInteger("Length in vertical axis: ");
         int hLength = IOUtils.getInteger("Length in horizontal axis: ");
         /*Check if there is any negative value*/
@@ -151,6 +151,6 @@ public class ShapeTesterGraphics
             bContinue = false;
             return;
         }
-        lastestShape = new Diamond(x, y, vLength, hLength);
+        latestShape = new Diamond(x, y, vLength, hLength);
     }
 }
